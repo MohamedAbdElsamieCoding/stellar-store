@@ -1,14 +1,9 @@
 const AuthHeroSection = () => {
   return (
-    <div className="relative inline-block overflow-hidden">
-      {/* BackGround image */}
-      <img
-        src="/overlay-bg.png"
-        alt="Cyber Background"
-        className="absolute inset-0 w-full h-fit object-cover z-0 block"
-      />
+    <div className="w-full relative bg-bg p-10 flex flex-col justify-start">
       {/* Content */}
-      <div className="absolute top-0 left-0 flex flex-col h-full p-12">
+      <div className="absolute top-0 left-0 flex flex-col p-12 bg-[url('/overlay-bg.png')] w-full bg-cover bg-center overflow-hidden">
+        <div className="absolute inset-0 bg-linear-to-l from-bg via-bg/80 to-transparent"></div>
         <div className="flex flex-col gap-20">
           <p className="text-primary font-headline text-[16px] tracking-[-0.8px] antialiased">
             Stellar Store
