@@ -1,9 +1,16 @@
 import { FaArrowRight } from "react-icons/fa";
-
+import { motion } from "framer-motion";
+import { fadeInUp } from "../../animations/variants";
 const NewsletterSection = () => {
   return (
     <section className="app-container flex justify-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 p-12 border border-text/20 rounded-sm bg-tertiary">
+      <motion.div
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-12 p-12 border border-text/20 rounded-sm bg-tertiary"
+      >
         <div className="flex flex-col gap-6 w-full">
           <h1 className="text-4xl tracking-[-0.8px]">JOIN THE INNER CIRCLE</h1>
           <p className="text-text max-w-3/4">
@@ -39,7 +46,7 @@ const NewsletterSection = () => {
             <p>ELITE SUPPORT</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

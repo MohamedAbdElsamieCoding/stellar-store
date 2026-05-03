@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -36,21 +37,32 @@ const Navbar = () => {
                   className={clsx(
                     "relative transition-all duration-300",
                     isActive
-                      ? "text-primary font-bold after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-primary pb-1.5"
+                      ? "text-primary font-bold pb-1.5"
                       : "text-text hover:text-text",
                   )}
                 >
                   {item.title}
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-underline"
+                      className="absolute left-0 -bottom-1 h-0.5 w-full bg-primary"
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
+                  )}
                 </Link>
               </li>
             );
           })}
         </ul>
         <div className="flex gap-6 text-text text-xl">
-          <button className="hover:scale-120 hover:text-primary duration-100">
+          <button className="hover:scale-120 hover:text-primary duration-400">
             <FiShoppingCart />
           </button>
-          <button className="hover:scale-120 hover:text-primary duration-100">
+          <button className="hover:scale-120 hover:text-primary transition-all duration-400">
             <CgProfile />
           </button>
         </div>

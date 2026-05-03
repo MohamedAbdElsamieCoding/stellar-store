@@ -19,7 +19,7 @@ const Footer = () => {
           <Link
             id={item.title}
             to={item.link}
-            className="text-text/40 hover:underline"
+            className="text-text/40 active:underline active:text-primary"
           >
             {item.title}
           </Link>

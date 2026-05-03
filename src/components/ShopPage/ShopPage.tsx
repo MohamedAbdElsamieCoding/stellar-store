@@ -1,11 +1,19 @@
+import { pageTransition, pageVariants } from "../../animations/variants";
 import CategoriesSection from "./CategoriesSection";
 import HeroSection from "./HeroSection";
 import NewsletterSection from "./NewsletterSection";
 import TrendingSection from "./TrendingSection";
-
+import { motion } from "framer-motion";
 const ShopPage = () => {
   return (
-    <div className="flex flex-col gap-24 container pb-24">
+    <motion.div
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      transition={pageTransition}
+      className="flex flex-col gap-24 container pb-24"
+    >
       {/* Hero Section */}
       <HeroSection />
       {/* Categories Section */}
@@ -14,7 +22,7 @@ const ShopPage = () => {
       <TrendingSection />
       {/* NewsLetter Section */}
       <NewsletterSection />
-    </div>
+    </motion.div>
   );
 };
 
