@@ -28,6 +28,10 @@
     @apply dark:bg-black bg-bg text-white;
     font-family: "Inter", sans-serif;
   }
+  html,
+  body {
+    overflow-x: hidden;
+  }
   h1 {
     @apply text-3xl font-bold;
     font-family: "Space Grotesk", sans-serif;
@@ -49,8 +53,8 @@
     @apply w-full;
   }
 }
- @layer utilities {
+@layer utilities {
   .app-container {
-  @apply px-2 md:px-4 
+    @apply px-4 md:px-8;
   }
- }
+}

@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import { IoIosSearch } from "react-icons/io";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 
@@ -9,9 +10,8 @@ const Navbar = () => {
   const location = useLocation();
 
   const navLinks = [
-    { title: "Shop", link: "/" },
-    { title: "Deals", link: "/deals" },
-    { title: "New Arrivals", link: "/arrivals" },
+    { title: "Home", link: "/" },
+    { title: "Shop", link: "/shop" },
   ];
 
   return (
@@ -59,6 +59,17 @@ const Navbar = () => {
           })}
         </ul>
         <div className="flex gap-6 text-text text-xl">
+          <form className="hidden md:flex items-center gap-3 bg-tertiary/90 px-4 py-1.5 border border-text/20 rounded-sm focus-within:border-primary transition">
+            <button type="button" className="text-text/90">
+              <IoIosSearch />
+            </button>
+            <input
+              type="text"
+              placeholder="Search"
+              className="text-sm w-full placeholder:text-text/20"
+            />
+          </form>
+
           <button className="hover:scale-120 hover:text-primary duration-400">
             <FiShoppingCart />
           </button>

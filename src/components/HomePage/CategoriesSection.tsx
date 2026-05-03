@@ -27,7 +27,7 @@ const CategoriesSection = () => {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          className="col-span-3 relative border border-text/30 rounded-sm"
+          className="col-span-1 md:col-span-3 relative border border-text/30 rounded-sm"
         >
           <img
             src="/hardware.png"
@@ -44,7 +44,7 @@ const CategoriesSection = () => {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          className="col-span-1 relative border border-text/30 rounded-sm"
+          className="col-span-1 md:col-span-1 relative border border-text/30 rounded-sm"
         >
           <img
             src="/hardware.png"
@@ -61,7 +61,7 @@ const CategoriesSection = () => {
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          className="col-span-4 relative border border-text/30 rounded-sm"
+          className="col-span-1 md:col-span-4 relative border border-text/30 rounded-sm"
         >
           <img
             src="/hardware.png"

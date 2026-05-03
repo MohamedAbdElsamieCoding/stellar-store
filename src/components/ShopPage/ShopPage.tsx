@@ -1,28 +1,25 @@
-import { pageTransition, pageVariants } from "../../animations/variants";
-import CategoriesSection from "./CategoriesSection";
-import HeroSection from "./HeroSection";
-import NewsletterSection from "./NewsletterSection";
-import TrendingSection from "./TrendingSection";
-import { motion } from "framer-motion";
+import ProductCard from "../HomePage/ProductCard";
+import HeroShopSection from "./HeroShopSection";
+import SidebarShop from "./SidebarShop";
+
 const ShopPage = () => {
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      transition={pageTransition}
-      className="flex flex-col gap-24 container pb-24"
-    >
-      {/* Hero Section */}
-      <HeroSection />
-      {/* Categories Section */}
-      <CategoriesSection />
-      {/* Trending Section */}
-      <TrendingSection />
-      {/* NewsLetter Section */}
-      <NewsletterSection />
-    </motion.div>
+    <div className="app-container flex flex-col gap-12 py-12">
+      <HeroShopSection />
+      <div className="flex justify-between gap-12">
+        <SidebarShop />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+        </div>
+      </div>
+    </div>
   );
 };
 

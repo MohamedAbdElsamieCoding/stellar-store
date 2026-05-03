@@ -5,7 +5,7 @@ import Button from "../../shared/Button";
 const MotionButton = motion(Button);
 const HeroSection = () => {
   return (
-    <section className="relative h-screen px-0">
+    <section className="relative h-screen w-screen mb-32 md:mb-0">
       <img src="/hardware.png" alt="hero" className="h-full object-cover" />
       <div className="absolute inset-0 bg-linear-to-r from-bg/80 to-transparent"></div>
       <motion.div

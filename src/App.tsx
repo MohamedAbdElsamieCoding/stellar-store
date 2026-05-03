@@ -1,19 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import AuthPage from "./components/AuthPage/AuthPage";
 import MainLayout from "./components/Layout/MainLayout";
-import ShopPage from "./components/ShopPage/ShopPage";
-import Deals from "./components/DealsPage/Deals";
-import NewArrivals from "./components/NewArrivalsPage/NewArrivals";
 import { AnimatePresence } from "framer-motion";
+import HomePage from "./components/HomePage/HomePage";
+import ShopPage from "./components/ShopPage/ShopPage";
 
 function App() {
   return (
     <AnimatePresence mode="wait">
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<ShopPage />} />
-          <Route path="/deals" element={<Deals />} />
-          <Route path="/arrivals" element={<NewArrivals />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
         </Route>
         <Route path="/auth" element={<AuthPage />} />
       </Routes>
