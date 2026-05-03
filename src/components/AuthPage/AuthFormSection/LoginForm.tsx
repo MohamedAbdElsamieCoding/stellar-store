@@ -2,9 +2,12 @@ import { useState } from "react";
 import Button from "../../../shared/Button";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col gap-6 w-full">
       <form className="flex flex-col gap-6">
@@ -40,7 +43,13 @@ const LoginForm = () => {
           </button>
         </div>
       </form>
-      <Button text="INITIALIZE SESSION" onClick={() => {}} />
+      <Button
+        text="INITIALIZE SESSION"
+        onClick={() => {
+          navigate("/");
+        }}
+        className="py-4"
+      />
     </div>
   );
 };

@@ -1,12 +1,18 @@
+import clsx from "clsx";
+
 interface Props {
   text: string;
   onClick: () => void;
+  className?: string;
 }
-const Button = ({ text, onClick }: Props) => {
+const Button = ({ text, onClick, className }: Props) => {
   return (
     <button
       onClick={onClick}
-      className="bg-primary text-[#283500] py-4 text-[14px] tracking-tight"
+      className={clsx(
+        "bg-primary text-[#283500] text-[14px] tracking-tight",
+        className,
+      )}
     >
       {text}
     </button>

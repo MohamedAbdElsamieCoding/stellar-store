@@ -51,7 +51,7 @@ const RegisterForm = () => {
           </button>
         </div>
       </form>
-      <Button text="INITIALIZE SESSION" onClick={() => {}} />
+      <Button text="INITIALIZE SESSION" onClick={() => {}} className="py-4"/>
     </div>
   );
 };
