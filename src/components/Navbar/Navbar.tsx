@@ -2,28 +2,33 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { IoIosSearch } from "react-icons/io";
+import { IoIosMenu } from "react-icons/io";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
     { title: "Home", link: "/" },
     { title: "Shop", link: "/shop" },
+    { title: "Cart", link: "/cart" },
+    { title: "Profile", link: "/profile" },
   ];
 
   return (
     <>
-      <nav className="flex justify-between items-center px-8 py-5 bg-neutral">
+      <nav className="relative flex justify-between items-center px-8 py-5 bg-neutral">
         <h2
           className="text-primary cursor-pointer"
           onClick={() => navigate("/")}
         >
           Stellar Store
         </h2>
-        <ul className="flex gap-8">
+        <ul className="hidden md:flex gap-8">
           {navLinks.map((item) => {
             const isActive =
               item.link === "/"
@@ -58,8 +63,8 @@ const Navbar = () => {
             );
           })}
         </ul>
-        <div className="flex gap-6 text-text text-xl">
-          <form className="hidden md:flex items-center gap-3 bg-tertiary/90 px-4 py-1.5 border border-text/20 rounded-sm focus-within:border-primary transition">
+        <div className="hidden md:flex gap-6 text-text text-xl">
+          <form className="flex items-center gap-3 bg-tertiary/90 px-4 py-1.5 border border-text/20 rounded-sm focus-within:border-primary transition">
             <button type="button" className="text-text/90">
               <IoIosSearch />
             </button>
@@ -77,6 +82,55 @@ const Navbar = () => {
             <CgProfile />
           </button>
         </div>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className=" md:hidden hover:text-primary duration-300 transition-all active:text-primary"
+        >
+          <IoIosMenu className="text-3xl" />
+        </button>
+        {isOpen && (
+          <motion.ul
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute top-full left-0 w-full bg-neutral md:hidden flex flex-col gap-4 p-4 border-t z-50"
+          >
+            {navLinks.map((item) => {
+              const isActive =
+                item.link === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(item.link);
+              return (
+                <li className="text-center">
+                  <Link
+                    onClick={() => setIsOpen(false)}
+                    id={item.title}
+                    to={item.link}
+                    className={clsx(
+                      "relative transition-all duration-300",
+                      isActive
+                        ? "text-primary font-bold pb-1.5"
+                        : "text-text hover:text-text",
+                    )}
+                  >
+                    {item.title}
+                    {isActive && (
+                      <motion.div
+                        layoutId="navbar-underline"
+                        className="absolute left-0 -bottom-1 h-0.5 w-full bg-primary"
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </motion.ul>
+        )}
       </nav>
     </>
   );

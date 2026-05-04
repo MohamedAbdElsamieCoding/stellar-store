@@ -13,7 +13,7 @@ const TrendingSection = () => {
           viewport={{ once: true }}
           className="flex flex-col gap-4"
         >
-          <h1 className="relative pl-13 before:absolute before:left-0 before:top-1/2 before:w-10 before:h-0.5 before:bg-primary before:-translate-y-1/2">
+          <h1 className="text-2xl md:text-3xl relative pl-13 before:absolute before:left-0 before:top-1/2 before:w-10 before:h-0.5 before:bg-primary before:-translate-y-1/2">
             TRENDING NOW
           </h1>
           <p className="text-text ">
@@ -25,7 +25,7 @@ const TrendingSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="underline text-[16px] font-medium text-primary font-headline"
+          className="underline text-sm font-medium text-primary font-headline"
         >
           VIEW ALL SERIES
         </motion.button>
