@@ -1,4 +1,4 @@
-import { easeInOut, easeOut, type Variants } from "framer-motion";
+import { easeIn, easeInOut, easeOut, type Variants } from "framer-motion";
 
 export const staggerContainer: Variants = {
   hidden: {},
@@ -71,4 +71,22 @@ export const pageVariants: Variants = {
 export const pageTransition = {
   duration: 0.4,
   ease: easeInOut,
+};
+
+export const navbarVariants: Variants = {
+  hidden: {
+    y: -70,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
+export const navbarTransition = {
+  transition: {
+    duration: 0.2,
+    ease: easeIn,
+  },
 };

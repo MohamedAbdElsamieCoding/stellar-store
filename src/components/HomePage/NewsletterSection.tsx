@@ -1,6 +1,7 @@
 import { FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../../animations/variants";
+
 const NewsletterSection = () => {
   return (
     <section className="app-container flex justify-center">
@@ -17,15 +18,25 @@ const NewsletterSection = () => {
             Get exclusive access to pre-market drops, technical deep- dives, and
             elite member pricing.
           </p>
-          <form className="flex relative">
+          <form className="flex relative items-center">
             <input
               type="email"
               placeholder="ENTER_EMAIL_ADDRESS"
-              className="w-full border-b border-b-primary/20 py-2"
+              className="w-fit border-b border-b-primary/20 py-2"
             />
-            <button type="button" className="absolute right-0 text-primary">
+            <motion.button
+              whileTap={{
+                x: [0, 10, 0],
+              }}
+              transition={{
+                duration: 0.2,
+                ease: "easeInOut",
+              }}
+              type="button"
+              className="absolute right-0 text-primary"
+            >
               <FaArrowRight />
-            </button>
+            </motion.button>
           </form>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-headline">
