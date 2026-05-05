@@ -22,7 +22,7 @@ const NewsletterSection = () => {
             <input
               type="email"
               placeholder="ENTER_EMAIL_ADDRESS"
-              className="w-fit border-b border-b-primary/20 py-2"
+              className="w-fit md:w-[97%] border-b border-b-primary/20 py-2"
             />
             <motion.button
               whileTap={{

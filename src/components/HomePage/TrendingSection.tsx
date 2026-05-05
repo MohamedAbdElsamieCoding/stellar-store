@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { fadeInUp, slideInLeft, slideInRight } from "../../animations/variants";
+import { useProductStore } from "../../store/useProductStore";
 import ProductCard from "./ProductCard";
 import { motion } from "framer-motion";
 
 const TrendingSection = () => {
+  const { fetchProducts, trending } = useProductStore();
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
   return (
     <section className="app-container flex flex-col gap-16">
       <div className="flex justify-between items-end">
@@ -36,10 +43,9 @@ const TrendingSection = () => {
         whileInView="visible"
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
       >
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {trending.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </motion.div>
     </section>
   );

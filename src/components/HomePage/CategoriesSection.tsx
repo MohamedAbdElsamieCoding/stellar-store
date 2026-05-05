@@ -3,9 +3,27 @@ import {
   slideInLeft,
   staggerContainer,
 } from "../../animations/variants";
-import Overlay from "../../shared/Overlay";
 import { motion } from "framer-motion";
+import { useCategoryStore } from "../../store/useCategoryStore";
+import { useEffect } from "react";
+import clsx from "clsx";
+import OverlayCat from "../../shared/OverlayCat";
+
 const CategoriesSection = () => {
+  const { categories, fetchCategories, loading } = useCategoryStore();
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  const categoryImages: Record<string, string> = {
+    electronics: "/electronics.jpg",
+    jewelery: "/jewelery.jpg",
+    "men's clothing": "/men.jpg",
+    "women's clothing": "/women.jpg",
+  };
+
+  if (loading && categories.length === 0) return <div>loading...</div>;
+
   return (
     <section className="flex flex-col gap-12 app-container">
       <motion.h1
@@ -21,60 +39,32 @@ const CategoriesSection = () => {
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
-        className="grid grid-col-4 gap-6 auto-rows-[250px]"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[250px]"
       >
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          className="col-span-1 md:col-span-3 relative border border-text/30 rounded-sm"
-        >
-          <img
-            src="/hardware.png"
-            alt="cat.png"
-            className="h-full object-cover"
-          />
-          <Overlay />
-          <div className="absolute bottom-0 left-0 pb-6 pl-4">
-            <p className="text-primary font-headline">01</p>
-            <h2 className="font-headline">Computing</h2>
-          </div>
-        </motion.div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          className="col-span-1 md:col-span-1 relative border border-text/30 rounded-sm"
-        >
-          <img
-            src="/hardware.png"
-            alt="cat.png"
-            className="h-full object-cover"
-          />
-          <Overlay />
-          <div className="absolute bottom-0 left-0 pb-6 pl-4">
-            <p className="text-primary font-headline">02</p>
-            <h2 className="font-headline">Audio</h2>
-          </div>
-        </motion.div>
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          className="col-span-1 md:col-span-4 relative border border-text/30 rounded-sm"
-        >
-          <img
-            src="/hardware.png"
-            alt="cat.png"
-            className="h-full object-cover"
-          />
-          <Overlay />
+        {categories.map((cat, index) => (
+          <motion.div
+            key={cat}
+            variants={fadeInUp}
+            className={clsx(
+              "relative border border-text/30 rounded-sm overflow-hidden",
+            )}
+          >
+            <img
+              src={categoryImages[cat]}
+              alt={cat}
+              className="h-full w-full object-cover"
+            />
 
-          <div className="absolute bottom-0 left-0 pb-6 pl-4">
-            <p className="text-primary font-headline">03</p>
-            <h2 className="font-headline">Gaming Ecosystem</h2>
-          </div>
-        </motion.div>
+            <OverlayCat />
+
+            <div className="absolute bottom-0 left-0 pb-6 pl-4">
+              <p className="text-primary font-headline">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h2 className="font-headline capitalize">{cat}</h2>
+            </div>
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );

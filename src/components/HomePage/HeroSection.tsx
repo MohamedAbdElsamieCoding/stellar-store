@@ -1,12 +1,23 @@
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "../../animations/variants";
 import Button from "../../shared/Button";
+import { useEffect } from "react";
+import { useProductStore } from "../../store/useProductStore";
 
 const MotionButton = motion(Button);
 const HeroSection = () => {
+  const { fetchProductById, product, loading } = useProductStore();
+  useEffect(() => {
+    fetchProductById(1);
+  }, [fetchProductById]);
+  if (loading && !product) return <div>loading....</div>;
   return (
-    <section className="relative h-dvw w-fit flex justify-center md:h-screen md:w-full">
-      <img src="/hardware.png" alt="hero" className="h-full object-cover" />
+    <section className="relative h-dvw w-fit flex justify-center md:h-screen md:w-dvw">
+      <img
+        src={product?.image}
+        alt={product?.title}
+        className="h-full object-contain"
+      />
       <div className="absolute inset-0 bg-linear-to-r from-bg/80 to-transparent"></div>
       <motion.div
         variants={staggerContainer}
@@ -14,25 +25,24 @@ const HeroSection = () => {
         animate="visible"
         className="absolute bottom-0 pl-8 flex flex-col gap-6 md:top-1/2 md:left-0 md:text-left"
       >
-        <div>
+        <div className="flex flex-col gap-2 w-2/3">
           <motion.p
             variants={fadeInUp}
             className="font-headline tracking-[3.2px] text-primary"
           >
-            NEXT-GEN HARDWARE
+            {product?.category}
           </motion.p>
           <motion.h1
             variants={fadeInUp}
-            className="font-bold text-4xl md:text-7xl tracking-[-2.88px] text-white"
+            className="font-bold text-4xl md:text-7xl tracking-[-2.88px] text-white line-clamp-2"
           >
-            CORE_X PRO ULTRA.
+            {product?.title}
           </motion.h1>
           <motion.p
             variants={fadeInUp}
-            className="max-w-full md:max-w-2/3 text-text"
+            className="max-w-full md:max-w-2/3 text-text line-clamp-2"
           >
-            Experience uncompromised speed with the latest 16-core architecture
-            and liquid-cooled thermal management.
+            {product?.description}
           </motion.p>
         </div>
         <motion.div
@@ -58,4 +68,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-// left-0 top-1/2 pl-8 flex flex-col gap-4 max-w-1/2
