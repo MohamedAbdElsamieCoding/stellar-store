@@ -4,20 +4,20 @@ import {
   staggerContainer,
 } from "../../animations/variants";
 import { motion } from "framer-motion";
-import { useCategoryStore } from "../../store/useCategoryStore";
 import { useEffect } from "react";
 import clsx from "clsx";
 import OverlayCat from "../../shared/OverlayCat";
+import { useProductStore } from "../../store/useProductStore";
 
 const CategoriesSection = () => {
-  const { categories, fetchCategories, loading } = useCategoryStore();
+  const { categories, fetchCategories, loading } = useProductStore();
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   const categoryImages: Record<string, string> = {
     electronics: "/electronics.jpg",
-    jewelery: "/jewelery.jpg",
+    Jewelry: "/jewelry.jpg",
     "men's clothing": "/men.jpg",
     "women's clothing": "/women.jpg",
   };

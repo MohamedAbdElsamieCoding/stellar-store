@@ -19,7 +19,7 @@ const ProductCard = ({ product }: Props) => {
       </div>
 
       <div className="flex flex-col gap-1 font-headline px-2 pb-1">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-2">
           <p className="text-[18px] text-white line-clamp-1">
             {formatTitle(product.title)}
           </p>

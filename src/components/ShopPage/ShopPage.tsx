@@ -1,23 +1,22 @@
-import ProductCard from "../HomePage/ProductCard";
 import HeroShopSection from "./HeroShopSection";
 import SidebarShop from "./SidebarShop";
+import ProductsGrid from "./ProductsGrid";
+import { useEffect } from "react";
+import { useProductStore } from "../../store/useProductStore";
 
 const ShopPage = () => {
+  const { fetchProducts, fetchCategories } = useProductStore();
+
+  useEffect(() => {
+    fetchProducts();
+    fetchCategories();
+  }, [fetchProducts, fetchCategories]);
   return (
     <div className="app-container flex flex-col gap-12 py-12">
       <HeroShopSection />
       <div className="flex justify-between gap-12">
         <SidebarShop />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </div>
+        <ProductsGrid />
       </div>
     </div>
   );
