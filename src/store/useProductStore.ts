@@ -12,6 +12,7 @@ export const useProductStore = create<ProductStore>((set, get) => ({
   allProducts: [],
   trending: [],
   product: null,
+  related: [],
 
   categories: [],
   selectedCategories: [],
@@ -116,5 +117,29 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       sortType: type,
       products: result,
     });
+  },
+  getProduct: async (id: string) => {
+    try {
+      set({ loading: true });
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/products/${id}`,
+      );
+      set({ loading: false, product: res.data });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  getRelated: async (currentId, category) => {
+    try {
+      set({ loading: true });
+      const res = await axios.get<Product[]>(
+        `${import.meta.env.VITE_BASE_URL}/products/category/${category}`,
+      );
+
+      const filtered = res.data.filter((item) => item.id !== Number(currentId));
+      set({ related: filtered, loading: false });
+    } catch (error) {
+      console.error(error);
+    }
   },
 }));

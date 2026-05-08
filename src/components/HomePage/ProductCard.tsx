@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { Product } from "../types/product.type";
 
 interface Props {
@@ -7,14 +8,18 @@ const ProductCard = ({ product }: Props) => {
   const formatTitle = (title: string) => {
     return title.split(" ").slice(0, 2).join(" ");
   };
+
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col gap-6 border border-text/20 rounded-sm bg-[#2A2A2A] overflow-hidden">
       <div className="p-5 flex justify-center items-center">
         <img
-        loading="lazy"
+          loading="lazy"
           src={product.image}
           alt={product.title}
-          className="relative object-contain h-60"
+          className="relative object-contain h-60 cursor-pointer"
+          onClick={() => navigate(`/products/${product.id}`)}
         />
       </div>
 

@@ -1,4 +1,5 @@
 import { useProductStore } from "../../store/useProductStore";
+import { formatCat } from "../../utils/formatCat";
 import { selectOpts } from "../../utils/selectedOpts";
 import type { SortType } from "../types/product.type";
 
@@ -10,8 +11,6 @@ const SidebarShop = () => {
     setSortType,
     sortType,
   } = useProductStore();
-  const formatCat = (cat: string) =>
-    cat.split(" ").map((w, i) => <span key={i}>{w}</span>);
 
   return (
     <aside className="flex flex-col gap-10">
@@ -57,10 +56,6 @@ const SidebarShop = () => {
             ))}
           </div>
         </div>
-      </div>
-      <div>
-        <p>VALUE RANGE</p>
-        <input type="range" max="5000" min="0" />
       </div>
     </aside>
   );

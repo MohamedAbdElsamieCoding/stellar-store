@@ -15,8 +15,12 @@ const ShopPage = () => {
     <div className="app-container flex flex-col gap-12 py-12">
       <HeroShopSection />
       <div className="flex justify-between gap-12">
-        <SidebarShop />
-        <ProductsGrid />
+        <div className="hidden md:block">
+          <SidebarShop />
+        </div>
+        <div className="flex-1 ml-0">
+          <ProductsGrid />
+        </div>
       </div>
     </div>
   );

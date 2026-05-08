@@ -32,6 +32,7 @@ export interface ProductStore {
   sortType: SortType;
   categories: Category[];
   selectedCategories: Category[];
+  related: Product[];
 
   loading: boolean;
 
@@ -42,4 +43,6 @@ export interface ProductStore {
   toggleCategory: (cat: Category) => void;
 
   setSortType: (type: SortType) => void;
+  getProduct: (id: string) => Promise<void>;
+  getRelated: (category: string, currentId: number) => Promise<void>;
 }

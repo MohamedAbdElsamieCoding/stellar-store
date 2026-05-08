@@ -17,7 +17,7 @@ const CategoriesSection = () => {
 
   const categoryImages: Record<string, string> = {
     electronics: "/electronics.jpg",
-    Jewelry: "/jewelry.jpg",
+    jewelery: "/jewelry.jpg",
     "men's clothing": "/men.jpg",
     "women's clothing": "/women.jpg",
   };
