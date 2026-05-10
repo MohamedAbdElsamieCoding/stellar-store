@@ -1,10 +1,10 @@
 import { FaStar } from "react-icons/fa6";
-import { FaArrowRight } from "react-icons/fa";
 import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProductDetailsPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { getProduct, product, loading, related, getRelated } =
     useProductStore();
@@ -78,14 +78,11 @@ const ProductDetailsPage = () => {
               </p>
               <p className="text-base font-headline">RELATED UNITS</p>
             </div>
-            <button className="flex items-center text-text/50 gap-2">
-              <p className="uppercase">VIEW {product?.category}</p>
-              <FaArrowRight />
-            </button>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {related.map((item) => (
-              <div
+              <button
+                onClick={() => navigate(`/products/${item.id}`)}
                 key={item.id}
                 className="border border-text/20 rounded-lg p-3"
               >
@@ -94,7 +91,7 @@ const ProductDetailsPage = () => {
                 <h3 className="mt-2 text-sm">{item.title.slice(0, 40)}</h3>
 
                 <p className="text-primary font-semibold">${item.price}</p>
-              </div>
+              </button>
             ))}
           </div>
         </div>

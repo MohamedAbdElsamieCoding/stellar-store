@@ -5,7 +5,7 @@ import type {
   Product,
   ProductStore,
   SortType,
-} from "../components/types/product.type";
+} from "../types/product.type";
 
 export const useProductStore = create<ProductStore>((set, get) => ({
   products: [],
@@ -129,17 +129,19 @@ export const useProductStore = create<ProductStore>((set, get) => ({
       console.error(error);
     }
   },
-  getRelated: async (currentId, category) => {
+  getRelated: async (category: string, currentId: number) => {
     try {
       set({ loading: true });
+
       const res = await axios.get<Product[]>(
-        `${import.meta.env.VITE_BASE_URL}/products/category/${category}`,
+        `${import.meta.env.VITE_BASE_URL}/products/category/${category.trim()}`,
       );
 
-      const filtered = res.data.filter((item) => item.id !== Number(currentId));
+      const filtered = res.data.filter((item) => item.id !== currentId);
       set({ related: filtered, loading: false });
     } catch (error) {
       console.error(error);
+      set({ loading: false });
     }
   },
 }));

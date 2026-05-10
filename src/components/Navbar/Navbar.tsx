@@ -82,7 +82,10 @@ const Navbar = () => {
             />
           </form>
 
-          <button className="hidden md:flex hover:scale-120 hover:text-primary duration-400">
+          <button
+            onClick={() => navigate("/cart")}
+            className="hidden md:flex hover:scale-120 hover:text-primary duration-400"
+          >
             <FiShoppingCart />
           </button>
           <button className="hidden md:flex hover:scale-120 hover:text-primary transition-all duration-400">

@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import HomePage from "./components/HomePage/HomePage";
 import ShopPage from "./components/ShopPage/ShopPage";
 import ProductDetailsPage from "./components/ProductDetails/ProductDetailsPage";
+import CartPage from "./components/CartPage/CartPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/products/:id" element={<ProductDetailsPage />} />
         </Route>
         <Route path="/auth" element={<AuthPage />} />
