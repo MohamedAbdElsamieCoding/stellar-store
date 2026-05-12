@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../../shared/Button";
 import { useCartStore } from "../../store/useCartStore";
 
-const OrderSummary = () => {
-  const navigate = useNavigate();
+const CheckoutSummary = () => {
   const cart = useCartStore((state) => state.cart);
 
   const subtotal = cart.reduce(
@@ -50,19 +47,8 @@ const OrderSummary = () => {
           ${total.toFixed(2)}
         </h2>
       </div>
-      <Button
-        onClick={() => navigate("/checkout")}
-        text="PROCEED TO CHECKOUT"
-        className="py-4 text-center font-bold font-headline text-lg leading-7 tracking-[1px]"
-      />
-      <button
-        onClick={() => navigate("/shop")}
-        className="py-4 text-center font-headline leading-7 tracking-[1px] border border-secondary text-secondary"
-      >
-        CONTINUE BROWSING
-      </button>
     </div>
   );
 };
 
-export default OrderSummary;
+export default CheckoutSummary;

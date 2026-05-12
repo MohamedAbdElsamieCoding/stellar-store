@@ -88,7 +88,10 @@ const Navbar = () => {
           >
             <FiShoppingCart />
           </button>
-          <button className="hidden md:flex hover:scale-120 hover:text-primary transition-all duration-400">
+          <button
+            onClick={() => navigate("/profile")}
+            className="hidden md:flex hover:scale-120 hover:text-primary transition-all duration-400"
+          >
             <CgProfile />
           </button>
         </div>
