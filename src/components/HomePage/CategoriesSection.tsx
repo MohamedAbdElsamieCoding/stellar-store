@@ -8,9 +8,12 @@ import { useEffect } from "react";
 import clsx from "clsx";
 import OverlayCat from "../../shared/OverlayCat";
 import { useProductStore } from "../../store/useProductStore";
+import { useNavigate } from "react-router-dom";
 
 const CategoriesSection = () => {
   const { categories, fetchCategories, loading } = useProductStore();
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
@@ -46,8 +49,9 @@ const CategoriesSection = () => {
             key={cat}
             variants={fadeInUp}
             className={clsx(
-              "relative border border-text/30 rounded-sm overflow-hidden",
+              "relative border border-text/30 rounded-sm overflow-hidden cursor-pointer",
             )}
+            onClick={() => navigate("/shop")}
           >
             <img
               src={categoryImages[cat]}

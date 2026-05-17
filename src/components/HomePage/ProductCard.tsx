@@ -32,7 +32,7 @@ const ProductCard = ({ product }: Props) => {
         opacity-0
         transition-all duration-300
         group-hover:opacity-100
-        flex items-center justify-center
+        flex flex-col items-center justify-center gap-4
       "
       >
         <button
@@ -41,6 +41,12 @@ const ProductCard = ({ product }: Props) => {
         >
           {added ? "Added ✓" : "Add To Cart"}
         </button>
+        <button
+          onClick={() => navigate(`/products/${product.id}`)}
+          className="bg-primary text-black px-6 py-2 rounded-xs font-semibold font-headline uppercase"
+        >
+          Show Details
+        </button>
       </div>
       <div className="p-5 flex justify-center items-center">
         <img
@@ -48,7 +54,6 @@ const ProductCard = ({ product }: Props) => {
           src={product.image}
           alt={product.title}
           className="relative object-contain h-60 cursor-pointer"
-          onClick={() => navigate(`/products/${product.id}`)}
         />
       </div>
 

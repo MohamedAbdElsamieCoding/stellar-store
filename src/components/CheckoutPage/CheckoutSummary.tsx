@@ -8,14 +8,14 @@ const CheckoutSummary = () => {
     0,
   );
 
-  const platformFee = subtotal * 0.03; // 3%
-  const tax = subtotal * 0.08; // 8%
+  const platformFee = subtotal * 0.03;
+  const tax = subtotal * 0.08;
   const shipping = subtotal > 100 ? 0 : 10;
 
   const total = subtotal + platformFee + tax + shipping;
 
   return (
-    <div className="col-span-1 flex flex-col gap-6 p-6 bg-[#191919] border border-text/20">
+    <div className="col-span-1 flex flex-col gap-6 p-6 bg-[#191919] border border-text/20 overflow-hidden">
       <h2 className="leading-10 font-medium text-center">ORDER_SUMMARY</h2>
       <hr className="h-1 text-text/20" />
       <div className="flex flex-col gap-4 font-headline leading-6">
