@@ -1,7 +1,7 @@
 import AuthTabs from "./AuthTabs";
 import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-
+import { signInWithGithub, signInWithGoogle } from "../services/auth.service";
 const AuthFormSection = () => {
   return (
     <div className="flex min-h-screen w-full justify-center md:py-7">
@@ -19,11 +19,17 @@ const AuthFormSection = () => {
           EXTERNAL AUTH
         </p>
         <div className="flex flex-col gap-5 md:justify-evenly md:flex-row ">
-          <button className="flex items-center gap-3 cursor-pointer py-3 px-7 border border-text active:translate-y-0.5 duration-75 justify-center">
+          <button
+            onClick={signInWithGoogle}
+            className="flex items-center gap-3 cursor-pointer py-3 px-7 border border-text active:translate-y-0.5 duration-75 justify-center"
+          >
             <FaGoogle className="text-2xl" />
             <p className="text-text">GOOGLE</p>
           </button>
-          <button className="flex items-center gap-3 cursor-pointer py-3 px-7 border border-text active:translate-y-0.5 duration-75 justify-center">
+          <button
+            onClick={signInWithGithub}
+            className="flex items-center gap-3 cursor-pointer py-3 px-7 border border-text active:translate-y-0.5 duration-75 justify-center"
+          >
             <FaGithub className="text-2xl" />
             <p className="text-text">GITHUB</p>
           </button>

@@ -8,8 +8,39 @@ import ProductDetailsPage from "./components/ProductDetails/ProductDetailsPage";
 import CartPage from "./components/CartPage/CartPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import CheckoutPage from "./components/CheckoutPage/CheckoutPage";
+import { useAuthStore } from "./store/useAuthStore";
+import { useEffect } from "react";
+import { supabase } from "./config/supabase";
 
 function App() {
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const setSession = useAuthStore((state) => state.setSession);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      setSession(session);
+      setUser(session?.user ?? null);
+    };
+
+    getSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [setUser, setSession]);
+
   return (
     <AnimatePresence mode="wait">
       <Routes>
