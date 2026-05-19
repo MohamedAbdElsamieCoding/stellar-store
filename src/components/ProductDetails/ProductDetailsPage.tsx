@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa6";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCartStore } from "../../store/useCartStore";
@@ -8,6 +8,7 @@ const ProductDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { addToCart } = useCartStore();
+  const [added, setAdded] = useState(false);
 
   const { getProduct, product, loading, related, getRelated } =
     useProductStore();
@@ -15,6 +16,11 @@ const ProductDetailsPage = () => {
   const handleAddToCart = () => {
     if (!product) return;
     addToCart(product);
+
+    setAdded(true);
+    setTimeout(() => {
+      setAdded(false);
+    }, 1200);
   };
 
   useEffect(() => {
@@ -73,7 +79,7 @@ const ProductDetailsPage = () => {
                 onClick={handleAddToCart}
                 className="py-6 font-headline tracking-[1.8px] bg-primary text-lg text-black border border-text/50 w-full"
               >
-                ADD TO CART
+                {added ? "Added ✓" : "Add To Cart"}
               </button>
             </div>
           </div>

@@ -21,6 +21,7 @@ const ProductCard = ({ product }: Props) => {
       setAdded(false);
     }, 1200);
   };
+  
   const navigate = useNavigate();
 
   return (
