@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
-import Button from "../../shared/Button";
 import { clsx } from "clsx";
 import { CiLock } from "react-icons/ci";
 import { BsToggle2Off } from "react-icons/bs";
 import { BsToggle2On } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaClockRotateLeft } from "react-icons/fa6";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
+import { useOrderStore } from "../../store/useOrderStore";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const [progress, setProgress] = useState(0);
   const [authToggle, setAuthToggle] = useState(true);
+  const { user, logout } = useAuthStore();
+  const { orders } = useOrderStore();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,19 +47,17 @@ const ProfilePage = () => {
               className="border border-primary rounded-xl h-18 w-fit object-cover"
             />
             <div className="flex flex-col gap-1">
-              <h1 className="md:text-4xl tracking-tight">ALEX_VANCE.SYS</h1>
+              <h1 className="md:text-4xl tracking-tight">{user?.email}</h1>
               <p className="text-text/50 tracking-[1.2px] text-xs">
-                JOINED 2042.08.15
+                JOINED {user?.created_at.split("T")[0]}
               </p>
             </div>
           </div>
           <div className="flex gap-4">
-            <Button
-              onClick={() => {}}
-              text="EDIT_PROFILE"
-              className="py-2 px-6 text-base font-headline font-medium"
-            />
-            <button className="py-2 px-6 border border-text/20 text-base font-headline">
+            <button
+              onClick={handleLogout}
+              className="py-2 px-6 border border-text/20 text-base font-headline"
+            >
               Logout
             </button>
           </div>
@@ -57,38 +65,42 @@ const ProfilePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 p-6 flex flex-col gap-6 bg-tertiary border border-text/50 rounded-xs">
             <h1>Active_Orders</h1>
-            <div
-              onClick={() => setActive(!active)}
-              className={clsx(
-                "p-4 flex bg-[#262626] justify-between items-center",
-                active ? "border-l-2 border-l-primary " : "border-none",
-              )}
-            >
-              <div className="flex gap-4 h-18 w-fit">
-                <img
-                  src="/cover.png"
-                  alt="product"
-                  className="object-contain"
-                />
-                <div className="flex flex-col w-full">
-                  <p className="whitespace-nowrap text-base">
-                    Neural_Link VR-9
-                  </p>
-                  <p className="whitespace-nowrap text-sm font-headline text-text/50">
-                    product id
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-1">
-                <div className="w-full md:w-50 bg-white/10 h-3 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary transition-all duration-300"
-                    style={{ width: `${progress}%` }}
+            {orders.map((order) => (
+              <div
+                key={order.id}
+                onClick={() => setActive(!active)}
+                className={clsx(
+                  "p-4 flex bg-[#262626] justify-between items-center",
+                  active ? "border-l-2 border-l-primary " : "border-none",
+                )}
+              >
+                <div className="flex gap-4 h-18 w-fit">
+                  <img
+                    src={order.image}
+                    alt={order.title}
+                    className="object-contain"
                   />
+                  <div className="flex flex-col w-full">
+                    <p className="whitespace-nowrap text-base">{order.title}</p>
+                    <p className="whitespace-nowrap text-sm font-headline text-text/50">
+                      {order.id}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-text/50">progress</p>
+                <div className="flex flex-col gap-2 w-full md:w-52">
+      <div className="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-primary transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      <p className="text-text/50 text-sm">
+        {progress}% Completed
+      </p>
+    </div>
               </div>
-            </div>
+            ))}
           </div>
           <div className="flex flex-col p-6 justify-between bg-tertiary border border-text/50 rounded-xs gap-6">
             <h1 className="font-medium">Wallet</h1>

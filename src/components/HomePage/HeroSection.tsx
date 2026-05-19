@@ -3,14 +3,26 @@ import { fadeInUp, staggerContainer } from "../../animations/variants";
 import Button from "../../shared/Button";
 import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
+import { useCartStore } from "../../store/useCartStore";
+import { useNavigate } from "react-router-dom";
 
 const MotionButton = motion(Button);
 const HeroSection = () => {
   const { fetchProductById, product, loading } = useProductStore();
+  const { addToCart } = useCartStore();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    addToCart(product);
+    navigate("/cart");
+  };
+
   useEffect(() => {
     fetchProductById(1);
   }, [fetchProductById]);
   if (loading && !product) return <div>loading....</div>;
+
   return (
     <section className="relative h-dvw w-fit flex justify-center md:h-screen md:w-dvw">
       <img
@@ -53,10 +65,11 @@ const HeroSection = () => {
             text="BUY NOW"
             className="px-10 py-2 md:py-4 font-headline"
             whileTap={{ y: 2, scale: 0.98 }}
-            onClick={() => {}}
+            onClick={handleAddToCart}
           />
           <motion.button
             whileTap={{ y: 2, scale: 0.98 }}
+            onClick={() => navigate(`/products/${product?.id}`)}
             className="px-10 py-2 md:px-10 md:py-4 tracking-tight border border-text text-text hover:text-white font-headline"
           >
             SPECIFICATIONS

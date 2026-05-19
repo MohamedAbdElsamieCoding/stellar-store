@@ -11,23 +11,30 @@ import CheckoutPage from "./components/CheckoutPage/CheckoutPage";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
 import { supabase } from "./config/supabase";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import PublicOnlyRoute from "./utils/PublicOnlyRoute";
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
 
   const setSession = useAuthStore((state) => state.setSession);
+  const setLoading = useAuthStore((state) => state.setLoading);
 
   useEffect(() => {
-    const getSession = async () => {
+    const initAuth = async () => {
+      setLoading(true);
+
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
       setSession(session);
       setUser(session?.user ?? null);
+
+      setLoading(false);
     };
 
-    getSession();
+    initAuth();
 
     const {
       data: { subscription },
@@ -39,7 +46,7 @@ function App() {
     return () => {
       subscription.unsubscribe();
     };
-  }, [setUser, setSession]);
+  }, [setUser, setSession, setLoading]);
 
   return (
     <AnimatePresence mode="wait">
@@ -47,12 +54,16 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/products/:id" element={<ProductDetailsPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
         </Route>
-        <Route path="/auth" element={<AuthPage />} />
+        <Route element={<PublicOnlyRoute />}>
+          <Route path="/auth" element={<AuthPage />} />
+        </Route>
       </Routes>
     </AnimatePresence>
   );

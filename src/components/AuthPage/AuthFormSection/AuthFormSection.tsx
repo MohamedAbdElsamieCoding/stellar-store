@@ -10,7 +10,9 @@ const AuthFormSection = () => {
           <p className="text-white">System Access</p>
           <p className="text-text">Identify yourself to proceed to terminal.</p>
         </div>
+
         <AuthTabs />
+        
         <p
           className="flex items-center gap-3 text-neutral-400 text-center
                     before:content-[''] before:flex-1 before:h-px before:bg-neutral-600

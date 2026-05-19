@@ -2,8 +2,7 @@ import { useState } from "react";
 import Button from "../../../shared/Button";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../../store/useAuthStore";
+import { useLocation, useNavigate } from "react-router-dom";
 import { login } from "../services/auth.service";
 
 const LoginForm = () => {
@@ -12,25 +11,21 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
-  const setUser = useAuthStore((state) => state.setUser);
-
-  const setSession = useAuthStore((state) => state.setSession);
   const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("LOGIN CLICKED");
 
     try {
       setLoading(true);
-      const { data, error } = await login(email, password);
+      const { error } = await login(email, password);
 
       if (error) {
         console.log(error.message);
         return;
       }
-      setUser(data.user);
-      setSession(data.session);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error);
     } finally {
@@ -47,6 +42,7 @@ const LoginForm = () => {
           <input
             type="email"
             name="email"
+            value={email}
             placeholder="operator@cybermart.io"
             className="bg-[#3F3F46] py-3 px-1 text-text"
             onChange={(e) => setEmail(e.target.value)}
@@ -59,6 +55,7 @@ const LoginForm = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
+            value={password}
             placeholder="••••••••••••"
             className="bg-[#3F3F46] py-3 px-1 relative text-text"
             onChange={(e) => setPassword(e.target.value)}
@@ -75,6 +72,7 @@ const LoginForm = () => {
         </div>
         <Button
           type="submit"
+          disabled={loading || !email || !password}
           text={loading ? "INITIALIZING..." : "INITIALIZE SESSION"}
           className="py-4"
         />

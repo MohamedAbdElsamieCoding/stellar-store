@@ -3,9 +3,15 @@ import Shipping from "./Shipping";
 import CheckoutSummary from "./CheckoutSummary";
 import Payment from "./Payment";
 import Review from "./Review";
+import { useOrderStore } from "../../store/useOrderStore";
+import { useCartStore } from "../../store/useCartStore";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const { addOrder } = useOrderStore();
+  const { cart, clearCart } = useCartStore();
+  const navigate = useNavigate();
 
   const steps = [
     { id: 1, label: "SHIPPING" },
@@ -26,7 +32,18 @@ const CheckoutPage = () => {
   };
 
   const handleConfirmOrder = () => {
-    console.log("Order Confirmed");
+    cart.forEach((item) => {
+      addOrder({
+        id: item.product.id,
+        title: item.product.title,
+        image: item.product.image,
+        progress: "Processing",
+      });
+    });
+
+    clearCart();
+
+    navigate("/profile");
   };
 
   return (
@@ -100,12 +117,14 @@ const CheckoutPage = () => {
           </div>
           <div>
             <CheckoutSummary />
-            <button
-              onClick={handleConfirmOrder}
-              className="w-full mt-6 py-4 bg-lime-400 text-black font-bold uppercase"
-            >
-              Confirm Order
-            </button>
+            {currentStep === 3 && (
+              <button
+                onClick={handleConfirmOrder}
+                className="w-full mt-6 py-4 bg-lime-400 text-black font-bold uppercase"
+              >
+                Confirm Order
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -2,12 +2,21 @@ import { FaStar } from "react-icons/fa6";
 import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import { useNavigate, useParams } from "react-router-dom";
+import { useCartStore } from "../../store/useCartStore";
 
 const ProductDetailsPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { addToCart } = useCartStore();
+
   const { getProduct, product, loading, related, getRelated } =
     useProductStore();
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    addToCart(product);
+  };
+
   useEffect(() => {
     if (id) {
       getProduct(id);
@@ -60,11 +69,11 @@ const ProductDetailsPage = () => {
             </div>
 
             <div className="flex justify-evenly gap-4">
-              <button className="py-6 font-headline tracking-[1.8px] bg-primary text-lg text-black border border-text/50 w-full">
+              <button
+                onClick={handleAddToCart}
+                className="py-6 font-headline tracking-[1.8px] bg-primary text-lg text-black border border-text/50 w-full"
+              >
                 ADD TO CART
-              </button>
-              <button className="py-6 font-headline tracking-[1.8px] text-lg text-text/50 border border-text/50 w-full">
-                BUY NOW
               </button>
             </div>
           </div>

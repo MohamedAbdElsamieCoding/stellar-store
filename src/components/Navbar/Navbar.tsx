@@ -7,11 +7,21 @@ import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { navbarTransition, navbarVariants } from "../../animations/variants";
+import { useAuthStore } from "../../store/useAuthStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    if (user) {
+      navigate("/profile");
+    } else {
+      navigate("/auth");
+    }
+  };
 
   const navLinks = [
     { title: "Home", link: "/" },
@@ -89,7 +99,7 @@ const Navbar = () => {
             <FiShoppingCart />
           </button>
           <button
-            onClick={() => navigate("/profile")}
+            onClick={handleProfileClick}
             className="hidden md:flex hover:scale-120 hover:text-primary transition-all duration-400"
           >
             <CgProfile />
