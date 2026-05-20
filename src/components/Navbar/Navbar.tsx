@@ -21,13 +21,19 @@ const Navbar = () => {
     } else {
       navigate("/auth");
     }
+
+    setIsOpen(false);
   };
 
   const navLinks = [
     { title: "Home", link: "/" },
     { title: "Shop", link: "/shop" },
-    // { title: "Cart", link: "/cart" },
-    // { title: "Profile", link: "/profile" },
+  ];
+
+  const mobileNavLinks = [
+    ...navLinks,
+    { title: "Cart", link: "/cart" },
+    { title: "Profile", link: "/profile" },
   ];
 
   return (
@@ -45,14 +51,17 @@ const Navbar = () => {
         >
           Stellar Store
         </h2>
+
+        {/* Desktop Links */}
         <ul className="hidden md:flex gap-8 pr-2">
           {navLinks.map((item) => {
             const isActive =
               item.link === "/"
                 ? location.pathname === "/"
                 : location.pathname.startsWith(item.link);
+
             return (
-              <li>
+              <li key={item.link}>
                 <Link
                   id={item.title}
                   to={item.link}
@@ -64,6 +73,7 @@ const Navbar = () => {
                   )}
                 >
                   {item.title}
+
                   {isActive && (
                     <motion.div
                       layoutId="navbar-underline"
@@ -80,15 +90,18 @@ const Navbar = () => {
             );
           })}
         </ul>
+
+        {/* Desktop Actions */}
         <div className="flex gap-6 text-text text-xl items-center">
-          <form className="flex items-center gap-3 bg-tertiary/90 px-4 py-1.5 border border-text/20 rounded-sm focus-within:border-primary transition">
+          <form className="hidden md:flex items-center gap-3 bg-tertiary/90 px-4 py-1.5 border border-text/20 rounded-sm focus-within:border-primary transition">
             <button type="button" className="text-text/90">
               <IoIosSearch />
             </button>
+
             <input
               type="text"
               placeholder="Search"
-              className="text-sm w-full placeholder:text-text/20"
+              className="text-sm w-full placeholder:text-text/20 bg-transparent outline-none"
             />
           </form>
 
@@ -98,6 +111,7 @@ const Navbar = () => {
           >
             <FiShoppingCart />
           </button>
+
           <button
             onClick={handleProfileClick}
             className="hidden md:flex hover:scale-120 hover:text-primary transition-all duration-400"
@@ -105,47 +119,72 @@ const Navbar = () => {
             <CgProfile />
           </button>
         </div>
+
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className=" md:hidden pl-1 hover:text-primary duration-300 transition-all active:text-primary"
+          className="md:hidden pl-1 hover:text-primary duration-300 transition-all active:text-primary"
         >
           <IoIosMenu className="text-3xl" />
         </button>
+
+        {/* Mobile Menu */}
         {isOpen && (
-          <motion.ul className="absolute top-full left-0 w-full bg-neutral md:hidden flex flex-col gap-4 p-4 border-t z-50">
-            {navLinks.map((item) => {
+          <motion.ul
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute top-full left-0 w-full bg-neutral md:hidden flex flex-col gap-4 p-4 border-t z-50"
+          >
+            {mobileNavLinks.map((item) => {
               const isActive =
                 item.link === "/"
                   ? location.pathname === "/"
                   : location.pathname.startsWith(item.link);
+
               return (
-                <li className="text-center">
-                  <Link
-                    onClick={() => {
-                      setTimeout(() => setIsOpen(false), 200);
-                    }}
-                    id={item.title}
-                    to={item.link}
-                    className={clsx(
-                      "relative transition-all duration-300",
-                      isActive
-                        ? "text-primary font-bold pb-1.5"
-                        : "text-text hover:text-text",
-                    )}
-                  >
-                    {item.title}
-                    {isActive && (
-                      <motion.div
-                        layoutId="navbar-underline"
-                        className="absolute left-0 -bottom-1 h-0.5 w-full bg-primary"
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </Link>
+                <li key={item.link} className="text-center">
+                  {item.title === "Profile" ? (
+                    <button
+                      onClick={handleProfileClick}
+                      className={clsx(
+                        "relative transition-all duration-300",
+                        isActive
+                          ? "text-primary font-bold pb-1.5"
+                          : "text-text hover:text-text",
+                      )}
+                    >
+                      {item.title}
+                    </button>
+                  ) : (
+                    <Link
+                      onClick={() => {
+                        setTimeout(() => setIsOpen(false), 200);
+                      }}
+                      id={item.title}
+                      to={item.link}
+                      className={clsx(
+                        "relative transition-all duration-300",
+                        isActive
+                          ? "text-primary font-bold pb-1.5"
+                          : "text-text hover:text-text",
+                      )}
+                    >
+                      {item.title}
+
+                      {isActive && (
+                        <motion.div
+                          layoutId="navbar-underline"
+                          className="absolute left-0 -bottom-1 h-0.5 w-full bg-primary"
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                    </Link>
+                  )}
                 </li>
               );
             })}
