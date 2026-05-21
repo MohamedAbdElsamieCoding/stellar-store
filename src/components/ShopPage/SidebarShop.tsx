@@ -1,7 +1,7 @@
 import { useProductStore } from "../../store/useProductStore";
 import { formatCat } from "../../utils/formatCat";
 import { selectOpts } from "../../utils/selectedOpts";
-import type { SortType } from "../types/product.type";
+import type { SortType } from "../../types/product.type";
 
 const SidebarShop = () => {
   const {
